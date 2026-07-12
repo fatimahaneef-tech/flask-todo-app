@@ -1,4 +1,4 @@
-# 📝 Flask Todo App
+#  Flask Todo App
 
 A containerized Todo List application built with **Flask**, featuring Docker support, CI/CD automation, and cloud deployment using Terraform on AWS.
 
@@ -11,7 +11,7 @@ A containerized Todo List application built with **Flask**, featuring Docker sup
 
 ---
 
-## 🚀 Features
+##  Features
 
 - Add new tasks
 - Mark tasks as completed
@@ -24,7 +24,7 @@ A containerized Todo List application built with **Flask**, featuring Docker sup
 
 ---
 
-## 📦 Quick Start
+##  Quick Start
 
 ### Run Locally
 
@@ -72,7 +72,7 @@ terraform apply
 
 ---
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 | Layer | Technology |
 |-------|------------|
@@ -85,7 +85,7 @@ terraform apply
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```text
 .
@@ -106,6 +106,6 @@ terraform apply
 
 ---
 
-## 📄 License
+##  License
 
 This project is licensed under the MIT License.
