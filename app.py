@@ -24,4 +24,4 @@ def delete(id):
     t = load(); save([x for x in t if x["id"]!=id]); return redirect("/")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
