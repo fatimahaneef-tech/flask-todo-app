@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo List</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="box">
+        <h1>📝 Todo List</h1>
+        <form action="/add" method="POST">
+            <input name="text" placeholder="Add a task..." required autofocus>
+            <button type="submit">Add</button>
+        </form>
+        <ul>
+        {% for t in todos %}
+            <li class="{{ 'done' if t.done else '' }}">
+                <a href="/toggle/{{ t.id }}" class="check">{{ '✅' if t.done else '⭕' }}</a>
+                <span>{{ t.text }}</span>
+                <a href="/delete/{{ t.id }}" class="del">🗑️</a>
+            </li>
+        {% endfor %}
+        </ul>
+        {% if not todos %}<p class="empty">No tasks yet. Add one above!</p>{% endif %}
+    </div>
+</body>
+</html>
