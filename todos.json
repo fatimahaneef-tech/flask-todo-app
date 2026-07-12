@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "id": 1,
+    "text": "🐳 Containerize the Flask app with Docker",
+    "done": true,
+    "created_at": "2026-07-10T08:00:00"
+  },
+  {
+    "id": 2,
+    "text": " Set up GitHub Actions CI/CD pipeline",
+    "done": true,
+    "created_at": "2026-07-11T10:30:00"
+  },
+  {
+    "id": 3,
+    "text": " Deploy to AWS EC2 using Terraform",
+    "done": false,
+    "created_at": "2026-07-12T14:15:00"
+  },
+  {
+    "id": 4,
+    "text": " Add monitoring and logging",
+    "done": false,
+    "created_at": "2026-07-12T16:45:00"
+  },
+  {
+    "id": 5,
+    "text": " Write LinkedIn post showcasing the project",
+    "done": false,
+    "created_at": "2026-07-13T02:00:00"
+  }
+]
