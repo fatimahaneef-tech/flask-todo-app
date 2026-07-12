@@ -8,9 +8,28 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-1"
+  region = "ap-south-1"
 }
 
+# Generate SSH key pair
+resource "tls_private_key" "todo_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "todo_key" {
+  key_name   = "todo-app-key"
+  public_key = tls_private_key.todo_key.public_key_openssh
+}
+
+# Save private key locally
+resource "local_file" "private_key" {
+  filename        = "${path.module}/todo-app-key.pem"
+  content         = tls_private_key.todo_key.private_key_pem
+  file_permission = "0400"
+}
+
+# Security group
 resource "aws_security_group" "todo_sg" {
   name_prefix = "todo-app-sg"
   
@@ -43,25 +62,31 @@ resource "aws_security_group" "todo_sg" {
   }
 }
 
+# EC2 instance
 resource "aws_instance" "todo_server" {
-  ami                    = "ami-0c7217cdde317cfec"
-  instance_type          = "t2.micro"
+  ami                    = "ami-0b910d1016287a5e7"  # Amazon Linux 2023 (Free Tier eligible)
+  instance_type          = "t3.micro"
   vpc_security_group_ids = [aws_security_group.todo_sg.id]
+  key_name               = aws_key_pair.todo_key.key_name
   
   user_data = <<-EOF
               #!/bin/bash
-              apt-get update
-              apt-get install -y docker.io
+              yum update -y
+              yum install -y docker
               systemctl start docker
               systemctl enable docker
-              usermod -aG docker ubuntu
+              usermod -aG docker ec2-user
               EOF
   
   tags = {
     Name = "todo-app-server"
   }
 }
-
+# Outputs
 output "server_public_ip" {
   value = aws_instance.todo_server.public_ip
+}
+
+output "ssh_command" {
+  value = "ssh -i todo-app-key.pem ubuntu@${aws_instance.todo_server.public_ip}"
 }
