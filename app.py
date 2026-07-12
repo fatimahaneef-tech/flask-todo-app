@@ -4,7 +4,14 @@ import json, os
 app = Flask(__name__)
 DB = "todos.json"
 
-def load(): return json.load(open(DB)) if os.path.exists(DB) else []
+def load():
+    if not os.path.exists(DB):
+        return []
+    try:
+        with open(DB, "r") as f:
+            return json.load(f)
+    except (json.JSONDecodeError, ValueError):
+        return []
 def save(t): json.dump(t, open(DB, "w"))
 
 @app.route("/")
